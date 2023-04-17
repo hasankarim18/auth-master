@@ -1,8 +1,11 @@
-    import React, { useState } from 'react';
+    import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Providers/AuthProviders';
     
     const Login = () => {
         const [showPassword, setShowPassword] = useState(false)
+
+        const { singInUser} = useContext(AuthContext)
 
         const handleShowPassword = ()=> {
             setShowPassword(prev => !prev)
@@ -13,7 +16,14 @@ import { Link } from 'react-router-dom';
             const form = event.target 
             const email = form.email.value 
             const password = form.password.value 
-            console.log({email}, {password});
+            singInUser(email, password)
+            .then((res)=> {
+              const loggedInUser = res.user;
+              console.log(loggedInUser);
+            })
+            .catch((error)=> {
+              console.log(error);
+            })
         }
         
 

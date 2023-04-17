@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Providers/AuthProviders';
 
 const Register = () => {
     
      const [showPassword, setShowPassword] = useState(false);
+     const {user, createUser } = useContext(AuthContext)
+
+
 
      const handleShowPassword = () => {
        setShowPassword((prev) => !prev);
@@ -15,6 +19,17 @@ const Register = () => {
         const name = form.name.value
         const email = form.email.value
         const password = form.password.value
+        // console.log({name}, {email}, {password});
+        createUser(email, password)
+        .then((result)=> {
+          const loggedInUser = result.user
+          console.log(loggedInUser);
+          form.reset()
+        })
+        .catch((error)=> {
+          console.log(error);
+        })
+
      }
 
     return (
@@ -24,8 +39,8 @@ const Register = () => {
             <h1 className="text-5xl font-bold">Please Register now!</h1>
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <form className="card-body">
-                {/* name */}
+            <form onSubmit={registerHandler} className="card-body">
+              {/* name */}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Name</span>
@@ -69,9 +84,9 @@ const Register = () => {
                     className="absolute top-1/3 right-1 cursor-pointer"
                   >
                     {!showPassword ? (
-                      <i class="fa-regular fa-eye"></i>
+                      <i className="fa-regular fa-eye"></i>
                     ) : (
-                      <i class="fa-regular fa-eye-slash"></i>
+                      <i className="fa-regular fa-eye-slash"></i>
                     )}
                   </span>
                 </div>
@@ -82,7 +97,7 @@ const Register = () => {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <button className="btn btn-primary">Register</button>
               </div>
             </form>
           </div>
