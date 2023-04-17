@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
         const [showPassword, setShowPassword] = useState(false)
         const navigate = useNavigate()
 
-        const { singInUser} = useContext(AuthContext)
+        const { singInUser, signInByGoogle } = useContext(AuthContext);
 
         const handleShowPassword = ()=> {
             setShowPassword(prev => !prev)
@@ -25,7 +25,7 @@ import { toast } from 'react-hot-toast';
             .then((res)=> {
               const loggedInUser = res.user;
            //   console.log(loggedInUser);
-           signInToast()
+               signInToast()
                navigate('/')
 
             })
@@ -35,6 +35,14 @@ import { toast } from 'react-hot-toast';
             })
         }
         
+
+        const googleSingInHandler = () => {
+            signInByGoogle()
+            .then(res => {
+               navigate("/");
+              console.log(res.user)
+            })
+        };
 
         return (
           <div className="hero min-h-screen bg-base-200">
@@ -90,6 +98,9 @@ import { toast } from 'react-hot-toast';
                     <button className="btn btn-primary">Login</button>
                   </div>
                 </form>
+                <div className="text-center">
+                  <button onClick={googleSingInHandler} className="btn">Google</button>
+                </div>
                 <Link to="/register" className="btn btn-link" > New to auth master?</Link>
               </div>
             </div>

@@ -13,7 +13,7 @@ const Header = () => {
       userSignOut()
       .then(result => {
        console.log(result);
-        signoutToast();
+       // signoutToast();
       })
       .catch(error => {
       //  console.log(error);

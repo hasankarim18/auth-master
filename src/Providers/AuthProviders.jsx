@@ -1,5 +1,13 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import app from '../../firebase.config';
 export const AuthContext = createContext(null)
 
@@ -33,12 +41,21 @@ useEffect(() => {
     return signOut(auth);
    }
 
+//    google sing in 
+   const googleProvider = new GoogleAuthProvider()
+
+   const signInByGoogle = ()=> {
+        return signInWithPopup(auth, googleProvider)
+   }
+
+
    const authInfo = {
      user,
      loading,
      createUser,
      singInUser,
      userSignOut,
+     signInByGoogle,
    };
 
    // observe auth state change 
