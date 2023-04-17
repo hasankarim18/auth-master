@@ -8,11 +8,13 @@ const auth = getAuth(app)
 
 const AuthProviders = ({children}) => {
    const [user, setUser] = useState(null)
+   const [loading, setLoading] = useState(true)
 
 useEffect(() => {
     const unsubscirbe = onAuthStateChanged(auth, (currentUser) => {
  //   console.log("auth state change", currentUser);
     setUser(currentUser);
+    setLoading(false)
     });
     return () => {
     unsubscirbe();
@@ -33,6 +35,7 @@ useEffect(() => {
 
    const authInfo = {
      user,
+     loading,
      createUser,
      singInUser,
      userSignOut,

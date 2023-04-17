@@ -3,7 +3,15 @@ import { AuthContext } from '../Providers/AuthProviders';
 import { Navigate } from 'react-router-dom';
 
 const PrivateRoutes = ({children}) => {
-    const {user} = useContext(AuthContext)
+    const {user, loading} = useContext(AuthContext)
+
+    if(loading){
+        return (
+          <div className="h-screen w-screen flex items-center justify-center">
+            <progress className="progress w-56"></progress>
+          </div>
+        );
+    }
   
    
     if(user){

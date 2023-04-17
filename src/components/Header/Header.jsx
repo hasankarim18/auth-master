@@ -30,12 +30,26 @@ const Header = () => {
           <NavLink className="btn btn-ghost normal-case text-xl" to="/orders">
             Orders
           </NavLink>
-          <NavLink className="btn btn-ghost normal-case text-xl" to="/login">
-            Login
+          <NavLink className="btn btn-ghost normal-case text-xl" to="/profile">
+            Profile
           </NavLink>
-          <NavLink className="btn btn-ghost normal-case text-xl" to="/register">
-            Register
-          </NavLink>
+          {!user && (
+            <>
+              <NavLink
+                className="btn btn-ghost normal-case text-xl"
+                to="/login"
+              >
+                Login
+              </NavLink>
+              <NavLink
+                className="btn btn-ghost normal-case text-xl"
+                to="/register"
+              >
+                Register
+              </NavLink>
+            </>
+          )}
+
           {user ? (
             <>
               {" "}
